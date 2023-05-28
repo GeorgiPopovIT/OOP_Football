@@ -4,6 +4,8 @@ namespace Football.Models
 {
     public class Game
     {
+        private int homeGoals;
+        private int awayGoals;
         public Game(Team homeTeam, Team awayTeam, Referee referee,
             Referee assistant1, Referee assistant2)
         {
@@ -13,7 +15,7 @@ namespace Football.Models
             this.Assistant1 = assistant1;
             this.Assistant2 = assistant2;
         }
-        public Team HomeTeam{ get; set; }
+        public Team HomeTeam { get; set; }
 
         public Team AwayTeam { get; set; }
 
@@ -23,30 +25,44 @@ namespace Football.Models
 
         public Referee Assistant2 { get; set; }
 
-        public List<Dictionary<int,FootballPlayer>> Goals  { get; set; }
-        public string Result => GetResult(); 
+        public List<Dictionary<int, FootballPlayer>> Goals { get; set; }
+        public string Result => GetResult();
 
-        public Team Winner { get; }
+        public string Winner  => GetWinner();
 
-        public string GetResult()
+        private string GetResult()
         {
-            int homeGoals = 0;
-            int awayGoals = 0;
             foreach (var goal in Goals)
             {
                 foreach (var player in goal.Values)
                 {
                     if (HomeTeam.Players.Contains(player))
                     {
-                        homeGoals++;
+                        this.homeGoals++;
                     }
                     else
                     {
-                        awayGoals++;
+                        this.awayGoals++;
                     }
                 }
             }
-            return $"Home: {homeGoals} - Away: {awayGoals}";
+            return $"Home: {this.homeGoals} - Away: {this.awayGoals}";
+        }
+
+        private string GetWinner()
+        {
+            if (homeGoals > awayGoals)
+            {
+                return "Home team";
+            }
+            else if (awayGoals > homeGoals)
+            {
+                return "Away team";
+            }
+            else
+            {
+                return "The result is X. No winner";
+            }
         }
 
     }

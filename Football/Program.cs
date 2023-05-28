@@ -63,6 +63,7 @@ game.Goals = new List<Dictionary<int, Football.Contracts.FootballPlayer>>
 };
 
 Console.WriteLine(game.Result);
+Console.WriteLine(game.Winner);
 
 
 
