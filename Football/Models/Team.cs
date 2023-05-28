@@ -19,4 +19,5 @@ public class Team
 	public Coach Coach { get; set; }
 
 	public double AverageAgeOfTeam => this.Players.Average(p => p.Age);
+
 }
